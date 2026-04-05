@@ -1,0 +1,56 @@
+* {
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: rgb(242, 242, 242);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+ol {
+  text-align: left;
+}
+
+.link-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 64px;
+}
+
+.link-container a {
+  width: 160px;
+  text-align: center;
+}
+
+img {
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+.home-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+}
+
+.btn {
+  padding: 16px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: maroon;
+  border-radius: 6px;
+}
