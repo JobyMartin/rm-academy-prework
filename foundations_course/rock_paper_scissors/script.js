@@ -1,15 +1,15 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const roundResult = document.getElementById('round-result');
+const scoreDisplay = document.getElementById('score');
+const gameWinner = document.getElementById('game-winner');
+const choiceButtons = document.querySelectorAll('[data-choice]');
+
 function getComputerChoice() {
   const choices = ['rock', 'paper', 'scissors'];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
-}
-
-function getHumanChoice() {
-  let humanChoice = prompt('Enter your choice: rock, paper, or scissors');
-  return humanChoice;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -31,20 +31,40 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    const result = playRound(humanChoice, computerChoice);
-    console.log(result);
-    console.log(`Score: You ${humanScore} - Computer ${computerScore}`);
+function updateDisplay(message) {
+  roundResult.textContent = message;
+  scoreDisplay.textContent = `Score: You ${humanScore} - Computer ${computerScore}`;
+}
+
+function announceWinner() {
+  const winnerMessage = humanScore >= 5
+    ? 'Congratulations! You won the game!'
+    : 'Game over! The computer won the game!';
+
+  gameWinner.textContent = winnerMessage;
+  console.log(winnerMessage);
+  choiceButtons.forEach(button => button.disabled = true);
+}
+
+function handleChoice(humanChoice) {
+  if (humanScore >= 5 || computerScore >= 5) {
+    return;
   }
 
-  if (humanScore === 5) {
-    console.log('Congratulations! You won the game!');
-  } else {
-    console.log('Game over! The computer won the game!');
+  const computerChoice = getComputerChoice();
+  const result = playRound(humanChoice, computerChoice);
+
+  updateDisplay(result);
+  console.log(result);
+  console.log(`Score: You ${humanScore} - Computer ${computerScore}`);
+
+  if (humanScore >= 5 || computerScore >= 5) {
+    announceWinner();
   }
 }
 
-playGame();
+choiceButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    handleChoice(button.dataset.choice);
+  });
+});
