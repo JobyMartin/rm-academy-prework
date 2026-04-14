@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Monaco;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #8e8e8e;
+  color: #111827;
+}
+
+h1,
+h2 {
+  margin: 0;
+  text-align: center;
+}
+
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+#controls label {
+  font-weight: 700;
+}
+
+#gridSizeInput {
+  width: 5rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #111827;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f2937;
+}
+
+#grid {
+  width: min(640px, 100%);
+  height: min(640px, 100vw);
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid #111827;
+  background: white;
+  --grid-size: 16;
+}
+
+.cell {
+  flex: 0 0 calc(100% / var(--grid-size));
+  aspect-ratio: 1 / 1;
+  border: 1px solid #e5e7eb;
+  background: #0f172a;
+  opacity: 0.1;
+}

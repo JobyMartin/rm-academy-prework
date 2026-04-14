@@ -1,0 +1,42 @@
+const defaultGridSize = 16
+
+function createGrid(size) {
+  const grid = document.getElementById('grid')
+  grid.innerHTML = ''
+  grid.style.setProperty('--grid-size', size)
+
+  for (let i = 0; i < size * size; i += 1) {
+    const cell = document.createElement('div')
+    cell.className = 'cell'
+
+    cell.addEventListener('mouseover', () => {
+      cell.style.opacity = Number(cell.style.opacity || 0) + 0.1
+    })
+
+    grid.appendChild(cell)
+  }
+}
+
+function promptForSize() {
+  const gridSizeInput = document.getElementById('gridSizeInput')
+
+  if (!gridSizeInput) {
+    alert('Grid size input not found.')
+    return
+  }
+
+  const size = Number(gridSizeInput.value)
+
+  if (!Number.isInteger(size) || size < 4 || size > 100) {
+    alert('Please enter a whole number between 4 and 100.')
+    return
+  }
+
+  createGrid(size)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const resizeButton = document.getElementById('resizeButton')
+  resizeButton.addEventListener('click', promptForSize)
+  createGrid(defaultGridSize)
+})
