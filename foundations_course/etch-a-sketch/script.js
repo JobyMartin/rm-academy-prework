@@ -35,8 +35,17 @@ function promptForSize() {
   createGrid(size)
 }
 
+function clearGrid() {
+  const cells = document.querySelectorAll('.cell')
+  cells.forEach(cell => {
+    cell.style.opacity = 0.1
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const resizeButton = document.getElementById('resizeButton')
   resizeButton.addEventListener('click', promptForSize)
+  const clearButton = document.getElementById('clearButton')
+  clearButton.addEventListener('click', clearGrid)
   createGrid(defaultGridSize)
 })
