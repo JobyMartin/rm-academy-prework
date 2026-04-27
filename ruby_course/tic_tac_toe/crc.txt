@@ -1,0 +1,46 @@
+
+Class Responsibilities and Collaborators 
+
+-----------------------
+Name: Player
+-----------------------
+Responsibilities:
+knows name
+knows symbol (X/O)
+-----------------------
+Collaborators:
+Game
+-----------------------
+
+-----------------------
+Name: Board
+-----------------------
+Responsibilities:
+knows the winning combinations
+knows the 9 quadrants of the board
+
+does show the board for turns
+does save the position of pieces
+does check for 3 in a row (win)
+does check for a full board 
+-----------------------
+Collaborators:
+Game
+-----------------------
+
+-----------------------
+Name: Game
+-----------------------
+Responsibilities:
+knows board
+knows players (name, symbol)
+knows current player
+
+does create players
+does controll turns 
+does handle input and output
+-----------------------
+Collaborators:
+Board
+Player
+-----------------------
