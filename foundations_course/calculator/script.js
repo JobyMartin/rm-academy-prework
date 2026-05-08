@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const display = document.getElementById("display")
   const equalsButton = document.getElementById("equals")
   const clearButton = document.getElementById("clear")
+  const decimalButton = document.getElementById("decimal")
+  const negativeButton = document.getElementById("negative")
   const buttons = document.querySelectorAll(".btn")
   const operators = document.querySelectorAll(".operator")
 
@@ -15,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buttons.forEach(btn => {
     const value = btn.dataset.value
+
+    if (btn.id === "decimal" || btn.id === "negative") return
 
     if (btn.classList.contains("operator")) {
       btn.addEventListener("click", () => handleOperator(value, btn))
@@ -98,6 +102,26 @@ document.addEventListener("DOMContentLoaded", () => {
     shouldResetDisplay = false
     display.value = ""
   }
+
+  decimalButton.addEventListener("click", () => {
+    const currentNumber = !operator ? firstNumber : secondNumber
+
+    if (currentNumber.includes(".")) return
+
+    handleNumber(".")
+  })
+
+  negativeButton.addEventListener("click", () => {
+    if (!operator) {
+      if (!firstNumber) return
+      firstNumber = (Number(firstNumber) * -1).toString()
+      display.value = firstNumber
+    } else {
+      if (!secondNumber) return
+      secondNumber = (Number(secondNumber) * -1).toString()
+      display.value = secondNumber
+    }
+  })
 })
 
 function add(a, b) {
