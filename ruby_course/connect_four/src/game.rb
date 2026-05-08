@@ -43,10 +43,13 @@ class Game
   end
 
   def setup
-    print "Enter the names of the 2 players and their colors (R for red, Y for yellow) separated by a comma (Joby R, Josh Y): "
-    names = gets.chomp.split(',')
-    create_player(names[0].split(' ')[0], names[0].split(' ')[1])
-    create_player(names[1].split(' ')[0], names[1].split(' ')[1])
+    colors = ['Y', 'R']
+
+    2.times do
+      print "Enter a players name: "
+      name = gets.chomp
+      create_player(name, colors.pop)
+    end
   end
 
   def play

@@ -42,14 +42,14 @@ RSpec.describe Game do
 
   describe "#setup" do
     it 'promts the players for names' do
-      allow(game).to receive(:gets).and_return("Joby R, Josh Y\n")
-  
+      allow(game).to receive(:gets).and_return("Joby\n", "Josh\n")
+
       expect { game.setup }
-        .to output("Enter the names of the 2 players and their colors (R for red, Y for yellow) separated by a comma (Joby R, Josh Y): ").to_stdout
+        .to output("Enter a players name: Enter a players name: ").to_stdout
     end
 
     it 'creates players' do
-      allow(game).to receive(:gets).and_return("Joby R, Josh Y\n")
+      allow(game).to receive(:gets).and_return("Joby\n", "Josh\n")
       game.setup
 
       expect(game.players[0].name).to eq('Joby')
