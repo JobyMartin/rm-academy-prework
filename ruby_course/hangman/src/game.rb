@@ -32,6 +32,11 @@ class HangmanGame
     @board.show
   end
 
+  def get_guess
+    print 'Enter letter guess or full word (SAVE to save game): '
+    gets.chomp
+  end
+
   def evaluate_guess(guess)
     if guess.length == 1
       already_guessed = @board.wrong_letters.include?(guess) || @board.letters.values.include?(guess)
@@ -55,6 +60,10 @@ class HangmanGame
         @code_word.chars.each_with_index do |char, i|
           @board.letters[i] = char
         end
+      else
+        @board.attempt_count -= 1
+        puts 'Incorrect word.'
+        sleep(1.5)
       end
     end
   end
@@ -64,13 +73,17 @@ class HangmanGame
   end
 
   def turn
-    print 'Enter letter guess or full word (SAVE to save game): '
-    guess = gets.chomp
+    guess = get_guess
 
     if guess.upcase == "SAVE"
       save_game
       puts "Game saved."
       exit
+    end
+
+    until guess.length > 0
+      puts "Please enter a single letter or a full word."
+      guess = get_guess
     end
 
     evaluate_guess(guess)
