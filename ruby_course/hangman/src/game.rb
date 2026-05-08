@@ -34,12 +34,21 @@ class HangmanGame
 
   def evaluate_guess(guess)
     if guess.length == 1
+      already_guessed = @board.wrong_letters.include?(guess) || @board.letters.values.include?(guess)
+
+      if already_guessed
+        puts "You already guessed '#{guess.upcase}'. Try a different letter."
+        sleep(2)
+        return
+      end
+
       if @code_word.include?(guess)
         @code_word.chars.each_with_index do |char, i|
           @board.letters[i] = char if char == guess
         end
       else
         @board.wrong_letters << guess
+        @board.attempt_count -= 1
       end
     else
       if @code_word == guess
@@ -55,8 +64,6 @@ class HangmanGame
   end
 
   def turn
-    @board.attempt_count -= 1
-
     print 'Enter letter guess or full word (SAVE to save game): '
     guess = gets.chomp
 
