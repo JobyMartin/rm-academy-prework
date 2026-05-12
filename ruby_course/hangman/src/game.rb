@@ -7,6 +7,7 @@ class HangmanGame
     @board = Board.new
     @all_words = File.read("./words.txt").split("\n")
     @code_word = nil
+    @guess_count = 0
   end
 
   def get_word
@@ -47,6 +48,8 @@ class HangmanGame
         return
       end
 
+      @guess_count += 1
+
       if @code_word.include?(guess)
         @code_word.chars.each_with_index do |char, i|
           @board.letters[i] = char if char == guess
@@ -56,6 +59,9 @@ class HangmanGame
         @board.attempt_count -= 1
       end
     else
+
+      @guess_count += 1
+
       if @code_word == guess
         @code_word.chars.each_with_index do |char, i|
           @board.letters[i] = char
@@ -109,7 +115,7 @@ class HangmanGame
     end
 
     if game_won?
-      puts "Correct! The word was #{@code_word}. It took you #{(6 - @board.attempt_count)} guesses."
+      puts "Correct! The word was #{@code_word}. It took you #{@guess_count} guesses."
     else
       puts "You lose! The word was #{@code_word}. Try again!"
     end
@@ -120,7 +126,8 @@ class HangmanGame
       code_word: @code_word,
       letters: @board.letters,
       wrong_letters: @board.wrong_letters,
-      attempts: @board.attempt_count
+      attempts: @board.attempt_count,
+      guess_count: @guess_count
     }
 
     File.write("save.yml", YAML.dump(data))
@@ -134,5 +141,6 @@ class HangmanGame
     @board.letters = data[:letters]
     @board.wrong_letters = data[:wrong_letters]
     @board.attempt_count = data[:attempts]
+    @guess_count = data[:guess_count]
   end
 end
