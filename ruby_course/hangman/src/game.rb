@@ -141,6 +141,10 @@ class HangmanGame
     @board.letters = data[:letters]
     @board.wrong_letters = data[:wrong_letters]
     @board.attempt_count = data[:attempts]
-    @guess_count = data[:guess_count]
+    @guess_count = data.fetch(:guess_count) do
+      correct_count = @board.letters.values.uniq.count { |value| value != '_' }
+      wrong_count = @board.wrong_letters.length
+      correct_count + wrong_count
+    end
   end
 end
